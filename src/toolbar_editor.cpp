@@ -23,6 +23,7 @@
 #include "toolbar_editor.hpp"
 #include <QMenu>
 #include <QToolBar>
+#include <QDebug>
 
 Q_DECLARE_METATYPE(QMenu*)
 Q_DECLARE_METATYPE(QToolBar*)
@@ -78,7 +79,6 @@ void Toolbar_Editor::apply() const
         }
 
     }
-
 
     foreach(QToolBar* toolbar, target->findChildren<QToolBar*>())
     {
@@ -263,13 +263,46 @@ void Toolbar_Editor::on_button_remove_toolbar_clicked()
 
 void Toolbar_Editor::on_button_add_toolbar_clicked()
 {
-    QString name = customToolbarNamePrefix + QString::number(toolbar_items.size());
+    QString name = customToolbarNamePrefix +
+            QString::number(getMaxCustomToolbarId());
     toolbar_items.insert(name,QList<QAction*>());
 
     combo_toolbar->addItem(name);
     combo_toolbar->setCurrentIndex(combo_toolbar->count()-1);
 }
 
+/**
+ * Returns the highest custom toolbar id
+ *
+ * @return
+ */
+int Toolbar_Editor::getMaxCustomToolbarId() {
+    int maxId = 0;
+    QRegularExpression regExp(
+            "^" + QRegularExpression::escape(customToolbarNamePrefix) +
+                    "(\\d)");
+
+    if (combo_toolbar->count() == 0) {
+        return 1;
+    }
+
+    for (int i = 0; i < combo_toolbar->count(); i++) {
+        QString name = combo_toolbar->itemText(i);
+        QRegularExpressionMatch match = regExp.match(name);
+
+        if (!match.hasMatch()) {
+            continue;
+        }
+
+        int id = match.captured(1).toInt();
+
+        if (id > maxId) {
+            maxId = id;
+        }
+    }
+
+    return maxId + 1;
+}
 
 void Toolbar_Editor::setButtonStyle(Qt::ToolButtonStyle style)
 {

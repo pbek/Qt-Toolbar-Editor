@@ -95,6 +95,8 @@ private:
     void insert_action(QAction* new_action);
 
     bool allowToolbarRemoval(QString name);
+
+    int getMaxCustomToolbarId();
 };
 
 #endif // TOOLBAR_EDITOR_HPP
