@@ -51,6 +51,7 @@ private:
     QMainWindow *target;
     QMap<QString, QList<QAction *> > toolbar_items;
     bool _customToolbarRemovalOnly;
+    QStringList _disabledToolbarNames;
 
 public:
     explicit Toolbar_Editor(QWidget *parent = 0);
@@ -79,6 +80,8 @@ public:
     bool customToolbarRemovalOnly() const;
 
     void setCustomToolbarRemovalOnly(bool flag);
+
+    void setDisabledToolbarNames(QStringList names);
 
 public slots:
 

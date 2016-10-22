@@ -100,19 +100,37 @@ void Toolbar_Editor::updateBars() {
     list_toolbar->clear();
     toolbar_items.clear();
 
-            foreach(QMenu *menu, target->findChildren<QMenu *>()) {
+    foreach(QMenu *menu, target->findChildren<QMenu *>()) {
             combo_menu->addItem(menu->title().replace('&', ""),
                                 QVariant::fromValue(menu));
         }
 
+    int i = 0;
+    QVariant v(0);
+    foreach(QToolBar *toolbar, target->findChildren<QToolBar *>()) {
+            QString name = toolbar->objectName();
 
-            foreach(QToolBar *toolbar, target->findChildren<QToolBar *>()) {
-            toolbar_items[toolbar->objectName()] = toolbar->actions();
-            combo_toolbar->addItem(
-                    toolbar->objectName()/*,QVariant::fromValue(toolbar)*/);
+            toolbar_items[name] = toolbar->actions();
+            combo_toolbar->addItem(name);
+
+            // disable the toolbar in the combo box
+            if (_disabledToolbarNames.contains(name)) {
+                QModelIndex index = combo_toolbar->model()->index(i, 0);
+                combo_toolbar->model()->setData(index, v, Qt::UserRole - 1);
+            }
+
+            i++;
         }
 }
 
+/**
+ * Set the toolbar names that have to be disabled
+ *
+ * @param names
+ */
+void Toolbar_Editor::setDisabledToolbarNames(QStringList names) {
+    _disabledToolbarNames = names;
+}
 
 void Toolbar_Editor::on_combo_menu_currentIndexChanged(int index) {
     list_menu->clear();
@@ -120,7 +138,7 @@ void Toolbar_Editor::on_combo_menu_currentIndexChanged(int index) {
     if (!menu)
         return;
 
-            foreach(QAction *act, menu->actions()) {
+    foreach(QAction *act, menu->actions()) {
             QListWidgetItem *item;
             if (!act->isSeparator())
                 item = new QListWidgetItem(act->icon(), act->iconText());
