@@ -47,7 +47,7 @@
    <item row="2" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QToolButton" name="button_add_toolbar">
+      <widget class="QPushButton" name="button_add_toolbar">
        <property name="toolTip">
         <string>Add new Toolbar</string>
        </property>
@@ -61,7 +61,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="button_remove_toolbar">
+      <widget class="QPushButton" name="button_remove_toolbar">
        <property name="toolTip">
         <string>Delete selected toolbar</string>
        </property>
@@ -99,7 +99,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QToolButton" name="button_up">
+      <widget class="QPushButton" name="button_up">
        <property name="toolTip">
         <string>Move Up</string>
        </property>
@@ -116,7 +116,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="button_down">
+      <widget class="QPushButton" name="button_down">
        <property name="toolTip">
         <string>Move Down</string>
        </property>
@@ -146,7 +146,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QToolButton" name="button_insert">
+      <widget class="QPushButton" name="button_insert">
        <property name="toolTip">
         <string>Insert</string>
        </property>
@@ -163,7 +163,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="button_remove">
+      <widget class="QPushButton" name="button_remove">
        <property name="toolTip">
         <string>Remove</string>
        </property>
@@ -193,7 +193,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QToolButton" name="button_insert_separator">
+      <widget class="QPushButton" name="button_insert_separator">
        <property name="whatsThis">
         <string>Separator</string>
        </property>

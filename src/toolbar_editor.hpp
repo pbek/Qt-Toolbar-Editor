@@ -35,11 +35,6 @@ Q_OBJECT
                        setTargetWindow
                        DESIGNABLE
                        false)
-    Q_PROPERTY(Qt::ToolButtonStyle buttonStyle
-                       READ
-                       buttonStyle
-                       WRITE
-                       setButtonStyle)
     Q_PROPERTY(bool customToolbarRemovalOnly
                        READ
                        customToolbarRemovalOnly
@@ -66,13 +61,6 @@ public:
     QMainWindow *targetWindow() const { return target; }
 
     QSize sizeHint() const;
-
-    /**
-     * \brief Style of the buttons
-     */
-    Qt::ToolButtonStyle buttonStyle() const;
-
-    void setButtonStyle(Qt::ToolButtonStyle style);
 
     /**
      * \brief Allow only non custom toolbars to be removed

@@ -40,8 +40,8 @@ Toolbar_Editor::Toolbar_Editor(QWidget *parent) :
     setupUi(this);
     _customToolbarRemovalOnly = false;
 
-            foreach(QToolButton *b,
-                    findChildren<QToolButton *>())b->setSizePolicy(
+            foreach(QPushButton *b,
+                    findChildren<QPushButton *>())b->setSizePolicy(
                     QSizePolicy::Expanding, QSizePolicy::Fixed);
 }
 
@@ -305,15 +305,6 @@ int Toolbar_Editor::getMaxCustomToolbarId() {
     }
 
     return maxId + 1;
-}
-
-void Toolbar_Editor::setButtonStyle(Qt::ToolButtonStyle style) {
-            foreach(QToolButton *b,
-                    findChildren<QToolButton *>())b->setToolButtonStyle(style);
-}
-
-Qt::ToolButtonStyle Toolbar_Editor::buttonStyle() const {
-    return button_insert->toolButtonStyle();
 }
 
 void Toolbar_Editor::setCustomToolbarRemovalOnly(bool flag) {
