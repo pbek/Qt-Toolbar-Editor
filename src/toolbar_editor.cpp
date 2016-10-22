@@ -321,3 +321,13 @@ bool Toolbar_Editor::allowToolbarRemoval(QString name) {
     return !_customToolbarRemovalOnly ||
            name.startsWith(customToolbarNamePrefix);
 }
+
+void Toolbar_Editor::on_list_menu_doubleClicked(const QModelIndex &index) {
+    Q_UNUSED(index);
+    on_button_insert_clicked();
+}
+
+void Toolbar_Editor::on_list_toolbar_doubleClicked(const QModelIndex &index) {
+    Q_UNUSED(index);
+    on_button_remove_clicked();
+}

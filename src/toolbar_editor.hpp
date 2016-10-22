@@ -119,6 +119,10 @@ private slots:
      */
     void update_list_toolbar(QString name);
 
+    void on_list_menu_doubleClicked(const QModelIndex &index);
+
+    void on_list_toolbar_doubleClicked(const QModelIndex &index);
+
 private:
     /// Insert a new action to the current toolbar
     void insert_action(QAction *new_action);
