@@ -24,6 +24,7 @@
 #include <QMenu>
 #include <QToolBar>
 #include <QDebug>
+#include <QMessageBox>
 
 Q_DECLARE_METATYPE(QMenu*)
 
@@ -249,6 +250,16 @@ void Toolbar_Editor::on_button_remove_toolbar_clicked() {
 
     if (!allowToolbarRemoval(name))
         return;
+
+    // ask for permission to remove the toolbar
+    if (QMessageBox::information(
+            this,
+            tr("Remove current toolbar"),
+            tr("Remove the current toolbar?"),
+            tr("&Remove"), tr("&Cancel"), QString::null,
+            0, 1) != 0) {
+        return;
+    }
 
     toolbar_items.remove(name);
     combo_toolbar->removeItem(combo_toolbar->currentIndex());
