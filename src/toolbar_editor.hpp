@@ -71,6 +71,8 @@ public:
 
     void setDisabledToolbarNames(QStringList names);
 
+    QStringList toolbarObjectNames();
+
 public slots:
 
     /**

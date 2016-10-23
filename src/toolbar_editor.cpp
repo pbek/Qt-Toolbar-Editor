@@ -58,10 +58,10 @@ void Toolbar_Editor::apply() const {
     if (!target)
         return;
 
-
     QList<QToolBar *> new_toolbars;
 
-    for (QMap<QString, QList<QAction *> >::const_iterator i = toolbar_items.begin(),
+    for (QMap<QString,
+            QList<QAction *> >::const_iterator i = toolbar_items.begin(),
                  e = toolbar_items.end(); i != e; ++i) {
         QToolBar *newtb = target->findChild<QToolBar *>(i.key());
 
@@ -72,24 +72,32 @@ void Toolbar_Editor::apply() const {
         }
 
         newtb->clear();
-                foreach(QAction *act, i.value()) {
+        foreach(QAction *act, i.value()) {
                 newtb->insertAction(0, act);
             }
 
     }
 
-            foreach(QToolBar *toolbar, target->findChildren<QToolBar *>()) {
+    foreach(QToolBar *toolbar, target->findChildren<QToolBar *>()) {
             if (!toolbar_items.contains(toolbar->objectName())) {
                 target->removeToolBar(toolbar);
             }
         }
 
-            foreach(QToolBar *toolbar, new_toolbars) {
+    foreach(QToolBar *toolbar, new_toolbars) {
             target->addToolBar(Qt::TopToolBarArea, toolbar);
             toolbar->show();
         }
 }
 
+/**
+ * Returns the object names of all toolbars
+ *
+ * @return
+ */
+QStringList Toolbar_Editor::toolbarObjectNames() {
+    return toolbar_items.keys();
+}
 
 void Toolbar_Editor::updateBars() {
     if (!target)
