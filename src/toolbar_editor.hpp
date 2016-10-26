@@ -47,6 +47,7 @@ private:
     QMap<QString, QList<QAction *> > toolbar_items;
     bool _customToolbarRemovalOnly;
     QStringList _disabledToolbarNames;
+    QStringList _disabledMenuNames;
 
 public:
     explicit Toolbar_Editor(QWidget *parent = 0);
@@ -70,6 +71,8 @@ public:
     void setCustomToolbarRemovalOnly(bool flag);
 
     void setDisabledToolbarNames(QStringList names);
+
+    void setDisabledMenuNames(QStringList names);
 
     QStringList toolbarObjectNames();
 

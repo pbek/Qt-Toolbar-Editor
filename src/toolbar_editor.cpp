@@ -108,14 +108,25 @@ void Toolbar_Editor::updateBars() {
     combo_toolbar->clear();
     list_toolbar->clear();
     toolbar_items.clear();
-
-    foreach(QMenu *menu, target->findChildren<QMenu *>()) {
-            combo_menu->addItem(menu->title().replace('&', ""),
-                                QVariant::fromValue(menu));
-        }
-
     int i = 0;
     QVariant v(0);
+
+    foreach(QMenu *menu, target->findChildren<QMenu *>()) {
+            QString name = menu->objectName();
+
+            combo_menu->addItem(menu->title().replace('&', ""),
+                                QVariant::fromValue(menu));
+
+            // disable the menu in the combo box
+            if (_disabledMenuNames.contains(name)) {
+                QModelIndex index = combo_menu->model()->index(i, 0);
+                combo_menu->model()->setData(index, v, Qt::UserRole - 1);
+            }
+
+            i++;
+        }
+
+    i = 0;
     foreach(QToolBar *toolbar, target->findChildren<QToolBar *>()) {
             QString name = toolbar->objectName();
 
@@ -141,22 +152,36 @@ void Toolbar_Editor::setDisabledToolbarNames(QStringList names) {
     _disabledToolbarNames = names;
 }
 
+/**
+ * Set the menu names that have to be disabled
+ *
+ * @param names
+ */
+void Toolbar_Editor::setDisabledMenuNames(QStringList names) {
+    _disabledMenuNames = names;
+}
+
 void Toolbar_Editor::on_combo_menu_currentIndexChanged(int index) {
     list_menu->clear();
     QMenu *menu = combo_menu->itemData(index).value<QMenu *>();
     if (!menu)
         return;
 
-    foreach(QAction *act, menu->actions()) {
+    foreach(QAction *action, menu->actions()) {
+            if (!action->isVisible()) {
+                continue;
+            }
+
             QListWidgetItem *item;
-            if (!act->isSeparator())
-                item = new QListWidgetItem(act->icon(), act->iconText());
-            else {
+
+            if (!action->isSeparator()) {
+                item = new QListWidgetItem(action->icon(), action->iconText());
+            } else {
                 item = new QListWidgetItem(tr("--(separator)--"));
                 item->setTextAlignment(Qt::AlignHCenter);
             }
 
-            item->setData(Qt::UserRole, QVariant::fromValue(act));
+            item->setData(Qt::UserRole, QVariant::fromValue(action));
             list_menu->addItem(item);
         }
 }
