@@ -161,6 +161,15 @@ void Toolbar_Editor::setDisabledMenuNames(QStringList names) {
     _disabledMenuNames = names;
 }
 
+/**
+ * Set the menu action names that have to be disabled
+ *
+ * @param names
+ */
+void Toolbar_Editor::setDisabledMenuActionNames(QStringList names) {
+    _disabledMenuActionNames = names;
+}
+
 void Toolbar_Editor::on_combo_menu_currentIndexChanged(int index) {
     list_menu->clear();
     QMenu *menu = combo_menu->itemData(index).value<QMenu *>();
@@ -181,6 +190,13 @@ void Toolbar_Editor::on_combo_menu_currentIndexChanged(int index) {
                 item->setTextAlignment(Qt::AlignHCenter);
             }
 
+            QString name = action->objectName();
+
+            // disable the item if needed
+            if (name.isEmpty() || _disabledMenuActionNames.contains(name)) {
+                item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+            }
+
             item->setData(Qt::UserRole, QVariant::fromValue(action));
             list_menu->addItem(item);
         }
@@ -191,9 +207,9 @@ void Toolbar_Editor::update_list_toolbar(QString name) {
 
             foreach(QAction *act, toolbar_items[name]) {
             QListWidgetItem *item;
-            if (!act->isSeparator())
+            if (!act->isSeparator()) {
                 item = new QListWidgetItem(act->icon(), act->iconText());
-            else {
+            } else {
                 item = new QListWidgetItem(tr("--(separator)--"));
                 item->setTextAlignment(Qt::AlignHCenter);
             }
