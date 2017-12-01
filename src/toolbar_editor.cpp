@@ -25,6 +25,7 @@
 #include <QToolBar>
 #include <QDebug>
 #include <QMessageBox>
+#include <utils/gui.h>
 
 Q_DECLARE_METATYPE(QMenu*)
 
@@ -301,12 +302,11 @@ void Toolbar_Editor::on_button_remove_toolbar_clicked() {
         return;
 
     // ask for permission to remove the toolbar
-    if (QMessageBox::information(
+    if (Utils::Gui::question(
             this,
             tr("Remove current toolbar"),
             tr("Remove the current toolbar?"),
-            tr("&Remove"), tr("&Cancel"), QString::null,
-            0, 1) != 0) {
+            "remove-toolbar") != QMessageBox::Yes) {
         return;
     }
 
