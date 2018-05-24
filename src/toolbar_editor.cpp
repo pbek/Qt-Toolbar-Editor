@@ -26,6 +26,8 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <utils/gui.h>
+#include <QRegularExpression>
+#include <QRegularExpressionMatch>
 
 Q_DECLARE_METATYPE(QMenu*)
 
