@@ -23,7 +23,7 @@
       <string>Select a menu</string>
      </property>
      <property name="whatsThis">
-      <string>Lists the avaliable menus to get the corresponding actions</string>
+      <string>Lists the available menus to get the corresponding actions</string>
      </property>
     </widget>
    </item>
